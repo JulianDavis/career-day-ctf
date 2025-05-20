@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="challenge-number" content="8">
+    <title>Code Cracker - Challenge 8/9</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+<div id="app">
+    <div class="challenge-container">
+        <div class="challenge-header">
+            <h1 class="challenge-title">Code Cracker</h1>
+            <p class="challenge-number">Challenge 8/9</p>
+        </div>
+        <p>You're getting really good at this! Now let's try something more technical.</p>
+        <p>I've written some special code to check the flag. Can you figure out what it's looking for?</p>
+
+        <div class="login-form">
+            <div class="form-group">
+                <label for="flag"></label>
+                <input type="text" id="flag" placeholder="Enter the secret flag">
+            </div>
+            <button type="button" id="login-button">Submit</button>
+            <p id="error-message" class="error-message"></p>
+        </div>
+
+        <div class="hint-container">
+            <div class="hint-buttons">
+                <button class="hint-button" id="hint1-button">Hint 1</button>
+                <button class="hint-button" id="hint2-button">Hint 2</button>
+                <button class="hint-button" id="hint3-button">Hint 3</button>
+                <button class="hint-button" id="hint4-button">Hint 4</button>
+            </div>
+            <div class="hint-content" id="hint1"></div>
+            <div class="hint-content" id="hint2"></div>
+            <div class="hint-content" id="hint3"></div>
+            <div class="hint-content" id="hint4"></div>
+            
+            <div class="solution-container">
+                <button id="solution-button" class="solution-button">Show Solution</button>
+                <div id="solution-content" class="solution-content">
+                    <div id="solution-steps"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../js/common.js?v=1.0"></script>
+<script src="../js/hints.js?v=1.0"></script>
+<script src="challenge8.js?v=1.0"></script>
+</body>
+</html>

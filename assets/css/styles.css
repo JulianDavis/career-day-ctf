@@ -1,0 +1,925 @@
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2980b9;
+    --bg-color: #f9f9f9;
+    --text-color: #333;
+    --success-color: #2ecc71;
+    --hint-color: #e67e22;
+    --error-color: #e74c3c;
+    --border-color: #ddd;
+    --notice-color: #9b59b6;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px 10px;
+    overflow-x: hidden;
+}
+
+#app {
+    width: 100%;
+    max-width: 840px; /* Increased to accommodate the terminal width */
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    position: relative;
+}
+
+.challenge-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.challenge-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.challenge-title {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+}
+
+.challenge-number {
+    font-size: 1rem;
+    color: var(--secondary-color);
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-weight: 600;
+}
+
+.form-group input {
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+/* Notice box for Challenge 6 */
+.notice-box, .info-box {
+    background-color: #f8f4fc;
+    border: 2px solid var(--notice-color);
+    border-left-width: 6px;
+    border-radius: 4px;
+    padding: 15px 20px;
+    margin: 20px 0;
+}
+
+.notice-box p, .info-box p {
+    margin-bottom: 8px;
+}
+
+.notice-box p:last-child, .info-box p:last-child {
+    margin-bottom: 0;
+}
+
+.notice-box strong, .info-box strong {
+    color: var(--notice-color);
+}
+
+/* URL hint box for Challenge 7 */
+.url-hint-box {
+    background-color: #f0f8ff;
+    border: 2px solid var(--primary-color);
+    border-left-width: 6px;
+    border-radius: 4px;
+    padding: 15px 20px;
+    margin: 20px 0;
+    animation: subtle-pulse 3s ease-in-out infinite;
+}
+
+.url-hint-box p {
+    margin-bottom: 8px;
+}
+
+.url-hint-box p:last-child {
+    margin-bottom: 0;
+}
+
+.url-hint-box strong {
+    color: var(--primary-color);
+}
+
+.url-example {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: rgba(52, 152, 219, 0.1);
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+}
+
+.url-example code {
+    background-color: #e8e8e8;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-size: 0.9em;
+}
+
+.highlight-param {
+    background-color: #ffff9c;
+    animation: param-highlight 2s ease-in-out infinite;
+    font-weight: bold;
+}
+
+@keyframes subtle-pulse {
+    0% { border-color: var(--primary-color); }
+    50% { border-color: var(--secondary-color); }
+    100% { border-color: var(--primary-color); }
+}
+
+@keyframes param-highlight {
+    0% { background-color: #ffff9c; }
+    50% { background-color: #fff3cd; }
+    100% { background-color: #ffff9c; }
+}
+
+button {
+    padding: 12px 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: var(--secondary-color);
+}
+
+.hint-container {
+    margin-top: 20px;
+}
+
+.hint-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.hint-button {
+    background-color: var(--hint-color);
+    font-size: 0.9rem;
+    position: relative;
+}
+
+.hint-button.hint-viewed::after {
+    content: "✓";
+    position: absolute;
+    top: 3px;
+    right: 5px;
+    font-size: 0.7rem;
+    color: white;
+}
+
+.hint-content {
+    padding: 15px;
+    background-color: #fff9e6;
+    border-left: 4px solid var(--hint-color);
+    margin-top: 10px;
+    display: none;
+}
+
+.solution-container {
+    margin-top: 25px;
+    border-top: 1px dashed var(--border-color);
+    padding-top: 15px;
+}
+
+.solution-button {
+    background-color: var(--notice-color);
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+.solution-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.solution-content {
+    display: none;
+    padding: 20px;
+    background-color: #f8f4fc;
+    border: 1px solid var(--notice-color);
+    border-radius: 4px;
+    margin-top: 15px;
+}
+
+.solution-content h3 {
+    color: var(--notice-color);
+    margin-bottom: 10px;
+}
+
+.error-message {
+    color: var(--error-color);
+    margin-top: 10px;
+    font-weight: 600;
+}
+
+.success-page {
+    text-align: center;
+}
+
+.success-title {
+    color: var(--success-color);
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+.next-button {
+    background-color: var(--success-color);
+    margin-top: 20px;
+}
+
+.hidden-text {
+    color: white;
+    user-select: text;
+}
+
+/* Alphabet chart styles for Challenge 4 */
+.alphabet-container {
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    max-width: 600px;
+}
+
+.alphabet-row {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.alphabet-cell {
+    width: 45px;
+    height: 45px;
+    border: 2px solid var(--primary-color);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f8ff;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.alphabet-cell:hover {
+    transform: scale(1.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    background-color: #e6f2ff;
+}
+
+.alphabet-cell span:first-child {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.alphabet-cell span:last-child {
+    font-size: 12px;
+    color: var(--secondary-color);
+}
+
+.alphabet-cell.highlighted {
+    background-color: #d4edda;
+    border-color: var(--success-color);
+}
+
+/* For the clock challenge */
+.clock-container {
+    margin: 20px auto;
+    width: 200px;
+    height: 200px;
+    position: relative;
+}
+
+.clocks-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin: 30px auto;
+    max-width: 600px;
+    justify-items: center;
+}
+
+.clock-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.clock-face {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 2px solid var(--text-color);
+    position: relative;
+}
+
+.clock-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--secondary-color);
+    text-align: center;
+}
+
+.clock-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    margin: -4px 0 0 -4px;
+    background-color: var(--text-color);
+    border-radius: 50%;
+    z-index: 3;
+}
+
+.clock-hour, .clock-minute {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-origin: center bottom;
+}
+
+.clock-hour {
+    width: 4px;
+    height: 45px;
+    margin: -45px 0 0 -2px;
+    background-color: var(--text-color);
+    z-index: 2;
+}
+
+.clock-minute {
+    width: 2px;
+    height: 60px;
+    margin: -60px 0 0 -1px;
+    background-color: var(--secondary-color);
+    z-index: 1;
+}
+
+.clock-number {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.clock-nav {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* Caesar cipher wheel styles */
+.caesar-wheel-container {
+    margin: 20px auto;
+    text-align: center;
+}
+
+.caesar-wheel {
+    position: relative;
+    width: 250px;
+    height: 250px;
+    margin: 0 auto;
+}
+
+.outer-ring, .inner-wheel {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px solid var(--text-color);
+}
+
+.outer-ring {
+    background-color: #f0f8ff;
+}
+
+.inner-wheel {
+    width: 80%;
+    height: 80%;
+    top: 10%;
+    left: 10%;
+    background-color: #e6f2ff;
+    transform: rotate(0deg);
+    transition: transform 0.5s ease;
+}
+
+.shift-control {
+    margin: 15px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.shift-control button {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#shift-value {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--primary-color);
+    width: 30px;
+    text-align: center;
+}
+
+.example-area {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+}
+
+.example-text {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 5px 0;
+}
+
+.solution-highlight {
+    color: var(--success-color);
+    font-weight: bold;
+}
+
+/* Terminal styling */
+.terminal-container {
+    background-color: #1e1e1e;
+    color: #f0f0f0;
+    padding: 15px;
+    border-radius: 5px;
+    font-family: 'Courier New', monospace;
+    height: 400px;
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: auto;
+    white-space: normal;
+    margin-bottom: 20px;
+    font-size: 14px;
+    line-height: 1.2;
+}
+
+.terminal-output {
+    margin-bottom: 0px;
+    line-height: 1.2;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.terminal-output > div {
+    margin: 0;
+    padding: 0;
+}
+
+.terminal-entry {
+    margin: 0;
+    padding: 0;
+    display: block;
+    font-family: 'Courier New', monospace;
+}
+
+.terminal-entry > div {
+    margin: 0;
+    padding: 0;
+    line-height: 1.2;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.terminal-output-line {
+    margin: 0;
+    padding: 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+/* Special class for ASCII art to preserve monospace formatting */
+.ascii-art {
+    font-family: 'Courier New', monospace;
+    white-space: pre;
+    line-height: 1;
+    overflow-x: auto;
+    font-size: 12px;
+}
+
+.terminal-input-line {
+    margin-top: 0;
+    padding-top: 0;
+    display: flex;
+    align-items: center;
+    height: 25px;
+}
+
+.terminal-prompt {
+    color: #4CAF50;
+    margin-right: 8px;
+    white-space: nowrap;
+}
+
+.terminal-input {
+    background: transparent;
+    border: none;
+    color: #f0f0f0;
+    font-family: 'Courier New', monospace;
+    flex-grow: 1;
+    outline: none;
+    font-size: 14px;
+    height: 25px;
+    padding: 0;
+}
+
+/* Terminal guide and visualizations */
+.terminal-guide {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 20px;
+    border-radius: 4px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    width: 90%;
+    max-width: 600px;
+    text-align: center;
+}
+
+.terminal-guide.hidden {
+    display: none;
+}
+
+.command-examples {
+    margin: 15px 0;
+    text-align: left;
+}
+
+.command-example {
+    display: flex;
+    margin: 8px 0;
+}
+
+.command-example code {
+    background: #2d2d2d;
+    padding: 3px 6px;
+    border-radius: 3px;
+    margin-right: 10px;
+    min-width: 100px;
+}
+
+.file-system-viz {
+    background-color: #f8f9fa;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 15px;
+    margin-top: 15px;
+}
+
+.file-list {
+    margin-top: 10px;
+    padding-left: 20px;
+}
+
+.file, .hidden-file {
+    margin: 5px 0;
+    position: relative;
+}
+
+.file::before {
+    content: "📄";
+    margin-right: 5px;
+}
+
+.hidden-file {
+    color: #999;
+}
+
+.hidden-file::before {
+    content: "🔒";
+    margin-right: 5px;
+}
+
+.visible-hidden {
+    color: var(--text-color);
+}
+
+.visible-hidden::before {
+    content: "🔓";
+    margin-right: 5px;
+}
+
+.highlight {
+    background-color: #ffff9c;
+    padding: 2px 4px;
+    animation: highlight-pulse 2s ease-in-out infinite;
+}
+
+@keyframes highlight-pulse {
+    0% { background-color: #ffff9c; }
+    50% { background-color: #ffffd9; }
+    100% { background-color: #ffff9c; }
+}
+
+.command-suggestions {
+    position: absolute;
+    bottom: 50px;
+    left: 15px;
+    right: 15px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    z-index: 5;
+}
+
+/* LS command styling */
+.ls-output {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.ls-header {
+    color: #2ecc71; /* Green */
+    font-weight: bold;
+    padding: 2px 0;
+    margin-bottom: 5px;
+}
+
+.ls-type-header {
+    width: 60px;
+    display: inline-block;
+}
+
+.ls-size-header {
+    width: 80px;
+    display: inline-block;
+    text-align: right;
+    padding-right: 15px;
+}
+
+.ls-name-header {
+    display: inline-block;
+}
+
+.ls-entry {
+    padding: 2px 0;
+    display: flex;
+    align-items: center;
+}
+
+.ls-dir-indicator {
+    color: #3498db; /* Blue */
+    font-weight: bold;
+    width: 60px;
+    display: inline-block;
+}
+
+.ls-file-indicator {
+    color: #e67e22; /* Orange */
+    width: 60px;
+    display: inline-block;
+}
+
+.ls-dir {
+    color: #3498db; /* Blue */
+    font-weight: bold;
+}
+
+.ls-file {
+    color: #f0f0f0; /* Default terminal color */
+}
+
+.ls-hidden {
+    color: #777777; /* Dark grey for hidden files */
+}
+
+.ls-size {
+    color: #95a5a6; /* Light grey */
+    width: 80px;
+    display: inline-block;
+    text-align: right;
+    padding-right: 15px;
+}
+
+@media (max-width: 868px) {
+    #app {
+        padding: 20px;
+        max-width: 95%;
+    }
+    
+    .challenge-title {
+        font-size: 1.5rem;
+    }
+    
+    .hint-buttons {
+        flex-direction: column;
+    }
+    
+    .alphabet-container {
+        transform: scale(0.9);
+    }
+    
+    .alphabet-cell {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .clocks-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        max-width: 400px;
+    }
+    
+    .clock-face {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .clock-hour {
+        height: 35px;
+        margin: -35px 0 0 -2px;
+    }
+    
+    .clock-minute {
+        height: 45px;
+        margin: -45px 0 0 -1px;
+    }
+    
+    .clock-number {
+        font-size: 0.7rem;
+        width: 14px;
+        height: 14px;
+    }
+    
+    .terminal-container {
+        font-size: 12px;
+        height: 350px;
+    }
+}
+
+@media (max-width: 480px) {
+    .clocks-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        max-width: 200px;
+    }
+    
+    .clock-face {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .clock-hour {
+        height: 30px;
+        margin: -30px 0 0 -2px;
+    }
+    
+    .clock-minute {
+        height: 40px;
+        margin: -40px 0 0 -1px;
+    }
+    
+    .clock-center {
+        width: 6px;
+        height: 6px;
+        margin: -3px 0 0 -3px;
+    }
+}
+
+/* Enhanced Challenge 8 Styling - Simplified */
+
+.simple-code {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 15px;
+    margin: 10px 0;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+}
+
+.simple-code code {
+    display: block;
+    margin: 5px 0;
+    color: var(--secondary-color);
+    font-weight: 600;
+}
+
+.position-demo {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 15px 0 5px 0;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.position-demo span {
+    background: #f0f8ff;
+    border: 2px solid var(--primary-color);
+    border-radius: 4px;
+    padding: 8px 12px;
+    color: var(--primary-color);
+}
+
+.position-numbers {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 0 0 15px 0;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.9em;
+    color: #666;
+}
+
+.position-numbers span {
+    padding: 0 12px;
+    text-align: center;
+    width: 44px;
+}
+
+.requirements-simple {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 15px;
+    margin: 10px 0;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+}
+
+.requirements-simple div {
+    margin: 8px 0;
+    padding: 5px;
+    background: white;
+    border-radius: 3px;
+    color: var(--secondary-color);
+    font-weight: 600;
+}
+
+@media (max-width: 480px) {
+    .position-demo {
+        font-size: 1.2em;
+        gap: 5px;
+    }
+    
+    .position-demo span {
+        padding: 6px 8px;
+    }
+    
+    .position-numbers span {
+        width: 36px;
+        padding: 0 8px;
+    }
+}
